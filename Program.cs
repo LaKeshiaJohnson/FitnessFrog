@@ -15,10 +15,10 @@ namespace FitnessFrog
 	{
 		static void Main()
 		{
-			int runningTotal = 0;
-			bool keepGoing = true;
+			double runningTotal = 0;
+			//bool keepGoing = true;
 			
-			while(keepGoing)
+			while(true)
 			{
 				//1.
 				Console.Write("Enter how many minutes you exercised or type \"quit\" to exit: ");
@@ -26,20 +26,52 @@ namespace FitnessFrog
 				//console.write = printing params to the console
 				
 				string entry = Console.ReadLine();
-				if (entry == "quit")
+				if (entry.ToLower() == "quit")
 				{
-					keepGoing = false;
+					//keepGoing = false;
+					break;
 				}
-				else
-				{
-					//2.
-					int minutes = int.Parse(entry);
-					//extracing the value from entry which is a string and converting it to an integer
-					runningTotal = runningTotal + minutes;
+				
+					try
+					{
+						//2.
+						double minutes = double.Parse(entry);
+						//extracing the value from entry which is a string and converting it to an integer
+						//double - numeric data type used to store decimals
+
+						if (minutes <= 0)
+						{
+							Console.WriteLine(minutes + " is not an acceptable value.");
+							continue;
+						}
+						if(minutes <= 10)
+	                    {
+	                        Console.WriteLine("Better than nothing, am I right?");
+	                    }
+	                    else if(minutes <= 30)
+	                    {
+	                        Console.WriteLine("Way to go hot stuff!");
+	                    }
+	                    else if(minutes <= 60)
+	                    {
+	                        Console.WriteLine("You must be a ninja warrior in training!");
+	                    }
+	                    else
+	                    {        
+	                        Console.WriteLine("Okay, now you're just showing off!");
+	                    }
+
+						runningTotal += minutes;
+					}
+					catch(FormatException)
+					{
+						Console.WriteLine("This is not valid input.");
+						continue;
+					}
 
 					//3.
 					Console.WriteLine("You've entered " + runningTotal + " minutes.");
-				}
+				
 			}
 			Console.WriteLine("Goodbye");
 		}
